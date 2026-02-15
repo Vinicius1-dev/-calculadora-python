@@ -1,0 +1,142 @@
+:root {
+  --bg: #f7f9fc;
+  --card: #ffffff;
+  --accent: #2563eb;
+  --accent-2: #7c3aed;
+  --muted: #6b7280;
+  --radius: 18px;
+  --shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+  --button: #f1f5f9;
+  --button-hover: #e2e8f0;
+  --equals: #10b981;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: #0f172a;
+}
+
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.calculator {
+  width: 340px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.04);
+}
+
+/* Display */
+.display {
+  height: 84px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border: 1px solid rgba(15, 23, 42, 0.04);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 16px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #0b1220;
+  overflow: hidden;
+  margin-bottom: 14px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.display[data-error="1"] {
+  color: var(--equals);
+}
+
+/* Keys grid */
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.key {
+  background: var(--button);
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+  box-shadow: 0 4px 10px rgba(2, 6, 23, 0.04);
+  font-weight: 500;
+}
+
+.key:hover {
+  transform: translateY(-4px);
+  background: var(--button-hover);
+  box-shadow: 0 6px 14px rgba(2, 6, 23, 0.08);
+}
+
+.key:active {
+  transform: translateY(-2px);
+}
+
+.key.op {
+  color: var(--accent-2);
+  font-weight: 700;
+}
+
+.key.func {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* wide zero */
+.key.wide {
+  grid-column: span 2;
+}
+
+/* equals highlighted */
+.key.equals {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(99, 102, 241, 0.18);
+  font-weight: 700;
+}
+
+.key.equals:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 14px 35px rgba(99, 102, 241, 0.22);
+}
+
+.key.equals:active {
+  transform: translateY(-2px) scale(1);
+}
+
+/* responsive */
+@media (max-width: 380px) {
+  .calculator {
+    width: 100%;
+    padding: 14px;
+  }
+  .display {
+    height: 72px;
+    font-size: 1.6rem;
+    padding: 12px;
+  }
+  .key {
+    padding: 12px;
+    font-size: 0.98rem;
+  }
+}
