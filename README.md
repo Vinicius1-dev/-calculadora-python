@@ -1,65 +1,96 @@
-# -calculadora-python
-Calculadora interativa em Python com funções matemáticas
-# 🧮 Calculadora Python Interativa
+🧮 Calculadora Python Web
+Calculadora interativa desenvolvida em Python com interface web para estudos de programação.
+📖 Sobre
+Projeto educacional para praticar lógica de programação em Python e criar uma aplicação funcional com interface web.
+⚡ Funcionalidades
 
-Calculadora de terminal desenvolvida em Python com operações matemáticas básicas e interface amigável.
+➕ Adição
+➖ Subtração
+✖️ Multiplicação
+➗ Divisão
+🌐 Interface web responsiva
+✅ Validação de entradas
+🚫 Tratamento de erros (divisão por zero)
 
-## ✨ Funcionalidades
+🛠️ Tecnologias
+Backend:
+Python 3
 
-- ➕ Adição
-- ➖ Subtração
-- ✖️ Multiplicação
-- ➗ Divisão (com proteção contra divisão por zero)
-- 🔢 Potenciação
-- 🔁 Menu interativo
+Frontend:
+HTML5
+CSS3
 
-## 🛠️ Tecnologias
+🚀 Como Usar
+1. Clone o repositório:
+bashgit clone https://github.com/seu-usuario-github/calculadora-python.git
+cd calculadora-python
+2. Abra no navegador:
 
-- Python 3
-- Programação funcional
-- Tratamento de erros (try/except)
+Abra o arquivo index.html diretamente no seu navegador
+Ou clique duas vezes no arquivo index.html
 
-## 🚀 Como Usar
+3. Use a calculadora:
 
-1. Execute o arquivo:
-```bash
-python calculadora.py
-```
+Digite os números
+Clique nas operações
+Veja o resultado!
 
-2. Escolha uma operação digitando o número correspondente
-3. Digite os dois números quando solicitado
-4. Veja o resultado!
+💻 Estrutura do Código
+Python (calculadora.py):
+pythondef adicao(a, b):
+    return a + b
 
-## 📸 Exemplo de Uso
+def subtracao(a, b):
+    return a - b
 
-```
-==================================================
-🧮 CALCULADORA PYTHON
-==================================================
+def multiplicacao(a, b):
+    return a * b
 
-Escolha uma operação:
-1. Adição (+)
-2. Subtração (-)
-3. Multiplicação (×)
-4. Divisão (÷)
-5. Potência (^)
-0. Sair
-==================================================
+def divisao(a, b):
+    if b == 0:
+        return "Erro: Divisão por zero!"
+    return a / b
+📸 Como Funciona
+┌─────────────────────┐
+│   CALCULADORA WEB   │
+├─────────────────────┤
+│   Display: [  0  ]  │
+├─────────────────────┤
+│  [7] [8] [9] [ ÷ ]  │
+│  [4] [5] [6] [ × ]  │
+│  [1] [2] [3] [ - ]  │
+│  [0] [.] [=] [ + ]  │
+└─────────────────────┘
 
-Digite o número da operação: 1
-Digite o primeiro número: 15
-Digite o segundo número: 7
+Usuário clica nos botões da calculadora
+Python processa as operações
+Resultado aparece no display
 
-✅ Resultado: 15.0 + 7.0 = 22.0
-```
+🎓 Aprendizados
+Este projeto me ajudou a praticar:
 
-## 👨‍💻 Autor
+✅ Funções e modularização de código Python
+✅ Manipulação de números e operações matemáticas
+✅ Validação de dados e tratamento de erros
+✅ Criação de interfaces web
+✅ Integração entre Python e HTML
 
-**Vinicius Alves Silva**
-- Desenvolvedor Python em formação
-- Estudante de Ciência de Dados & IA
-- [LinkedIn](https://www.linkedin.com/in/vinicius-alves-silva-b666b6364/)
+🔧 Arquivos do Projeto
+calculadora-python/
+│
+├── calculadora.py    # Lógica das operações
+├── index.html        # Estrutura da página
+├── render.css         # Estilização
+└── README.md         # Este arquivo
+👨‍💻 Desenvolvedor
+Vinicius Alves Silva
 
----
+🎓 Estudante de Ciência de Dados
+🏆 Certificações: Google & IBM - Python
+🐍 Foco: Python, Análise de Dados, IA
+💼 LinkedIn
 
-💡 Projeto desenvolvido para fins educacionais
+📝 Status
+✅ Versão 1.0 - Funcional e testada
+
+💡 Projeto desenvolvido para aprendizado de programação Python 🐍
