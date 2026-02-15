@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadora</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="wrap">
+    <section class="calculator">
+      <div id="display" class="display">0</div>
+      
+      <form method="post" class="keys">
+        <input type="hidden" id="num1-input" name="num1" value="">
+        <input type="hidden" id="num2-input" name="num2" value="">
+        <input type="hidden" id="op-input" name="operacao" value="">
+
+        <button type="button" class="key func" data-action="clear">C</button>
+        <button type="button" class="key func" data-action="back">⌫</button>
+        <button type="button" class="key func" data-value="(">(</button>
+        <button type="button" class="key op" data-value="/">÷</button>
+
+        <button type="button" class="key" data-value="7">7</button>
+        <button type="button" class="key" data-value="8">8</button>
+        <button type="button" class="key" data-value="9">9</button>
+        <button type="button" class="key op" data-value="*">×</button>
+
+        <button type="button" class="key" data-value="4">4</button>
+        <button type="button" class="key" data-value="5">5</button>
+        <button type="button" class="key" data-value="6">6</button>
+        <button type="button" class="key op" data-value="-">−</button>
+
+        <button type="button" class="key" data-value="1">1</button>
+        <button type="button" class="key" data-value="2">2</button>
+        <button type="button" class="key" data-value="3">3</button>
+        <button type="button" class="key op" data-value="+">+</button>
+
+        <button type="button" class="key wide" data-value="0">0</button>
+        <button type="button" class="key" data-value=".">.</button>
+        <button type="submit" class="key equals">=</button>
+      </form>
+
+      {% if resultado is not none %}
+      <div style="margin-top: 14px; padding: 12px; border-radius: 10px; background: rgba(79, 70, 229, 0.06); border: 1px solid rgba(79, 70, 229, 0.12); text-align: right;">
+        <div style="font-size: 0.9rem; color: #6b7280; margin-bottom: 4px;">Resultado</div>
+        <div style="font-size: 1.2rem; font-weight: 600; color: #0b1220;">{{ resultado }}</div>
+      </div>
+      {% endif %}
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const displayEl = document.getElementById('display');
+      const keys = document.querySelectorAll('.key');
+      let expr = '';
+
+      function updateDisplay(text){
+        displayEl.textContent = text === '' ? '0' : text;
+      }
+
+      keys.forEach(k => k.addEventListener('click', () => {
+        const val = k.dataset.value;
+        const action = k.dataset.action;
+
+        if (action === 'clear'){
+          expr = '';
+          updateDisplay('');
+          return;
+        }
+        if (action === 'back'){
+          expr = expr.slice(0, -1);
+          updateDisplay(expr);
+          return;
+        }
+        if (val){
+          const mapped = val.replace('÷','/').replace('×','*').replace('−','-');
+          expr += mapped;
+          updateDisplay(expr);
+        }
+      }));
+
+      document.querySelector('form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('num1-input').value = expr;
+        document.getElementById('num2-input').value = '';
+        document.getElementById('op-input').value = '';
+        document.querySelector('form').submit();
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if ((/[\d+\-*/().]/).test(e.key)) {
+          expr += e.key;
+          updateDisplay(expr);
+          e.preventDefault();
+        } else if (e.key === 'Enter') {
+          document.querySelector('form').dispatchEvent(new Event('submit'));
+          e.preventDefault();
+        } else if (e.key === 'Backspace') {
+          expr = expr.slice(0,-1);
+          updateDisplay(expr);
+          e.preventDefault();
+        } else if (e.key.toLowerCase() === 'c') {
+          expr = '';
+          updateDisplay('');
+          e.preventDefault();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
