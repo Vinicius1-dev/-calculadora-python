@@ -1,89 +1,44 @@
-# Calculadora Python Interativa
-# Projeto educacional - Operações matemáticas básicas
-
-def adicao(a, b):
-    """Soma dois números"""
-    return a + b
-
-def subtracao(a, b):
-    """Subtrai o segundo número do primeiro"""
-    return a - b
-
-def multiplicacao(a, b):
-    """Multiplica dois números"""
-    return a * b
-
-def divisao(a, b):
-    """Divide o primeiro número pelo segundo"""
-    if b == 0:
-        return "Erro: Divisão por zero não é permitida!"
-    return a / b
-
-def potencia(a, b):
-    """Eleva o primeiro número à potência do segundo"""
-    return a ** b
-
-def menu():
-    """Exibe o menu de operações"""
-    print("\n" + "="*50)
-    print("🧮 CALCULADORA PYTHON")
-    print("="*50)
-    print("\nEscolha uma operação:")
-    print("1. Adição (+)")
-    print("2. Subtração (-)")
-    print("3. Multiplicação (×)")
-    print("4. Divisão (÷)")
-    print("5. Potência (^)")
-    print("0. Sair")
-    print("="*50)
-
-def executar_calculadora():
-    """Função principal que executa a calculadora"""
-    while True:
-        menu()
-        
-        try:
-            opcao = int(input("\nDigite o número da operação: "))
-            
-            if opcao == 0:
-                print("\n👋 Obrigado por usar a Calculadora Python!")
-                print("Desenvolvido por Vinicius Alves Silva")
-                break
-            
-            if opcao not in [1, 2, 3, 4, 5]:
-                print("\n❌ Opção inválida! Escolha entre 0 e 5.")
-                continue
-            
-            num1 = float(input("Digite o primeiro número: "))
-            num2 = float(input("Digite o segundo número: "))
-            
-            if opcao == 1:
-                resultado = adicao(num1, num2)
-                operador = "+"
-            elif opcao == 2:
-                resultado = subtracao(num1, num2)
-                operador = "-"
-            elif opcao == 3:
-                resultado = multiplicacao(num1, num2)
-                operador = "×"
-            elif opcao == 4:
-                resultado = divisao(num1, num2)
-                operador = "÷"
-            elif opcao == 5:
-                resultado = potencia(num1, num2)
-                operador = "^"
-            
-            print(f"\n✅ Resultado: {num1} {operador} {num2} = {resultado}")
-            
-            input("\nPressione ENTER para continuar...")
-            
-        except ValueError:
-            print("\n❌ Erro: Digite apenas números válidos!")
-            input("\nPressione ENTER para continuar...")
-        except Exception as e:
-            print(f"\n❌ Erro inesperado: {e}")
-            input("\nPressione ENTER para continuar...")
-
-# Executar o programa
-if __name__ == "__main__":
-    executar_calculadora()
+from flask import Flask, render_template, request
+import os
+app = Flask(__name__)
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    resultado = None
+    if request.method == 'POST':
+        num1_str = request.form.get('num1', '').strip()
+        num2_str = request.form.get('num2', '').strip()
+        operacao = request.form.get('operacao', '').strip()
+        if num2_str and operacao:
+            try:
+                num1 = float(num1_str)
+                num2 = float(num2_str)
+                if operacao == '+':
+                    resultado = num1 + num2
+                elif operacao == '-':
+                    resultado = num1 - num2
+                elif operacao == '*':
+                    resultado = num1 * num2
+                elif operacao == '/':
+                    if num2 == 0:
+                        resultado = 'Erro: Divisão por zero'
+                    else:
+                        resultado = num1 / num2
+                else:
+                    resultado = 'Operação inválida'
+            except ValueError:
+                resultado = 'Entrada inválida'
+        elif num1_str:
+            try:
+                if not all(c.isdigit() or c in '+-*/().' or c.isspace() for c in num1_str):
+                    resultado = 'Entrada inválida'
+                else:
+                    resultado = eval(num1_str)
+                    if not isinstance(resultado, (int, float)) or not (-float('inf') < resultado < float('inf')):
+                        resultado = 'Erro'
+            except ZeroDivisionError:
+                resultado = 'Erro: Divisão por zero'
+            except:
+                resultado = 'Entrada inválida'
+    return render_template('index.html', resultado=resultado)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=(os.environ.get('FLASK_DEBUG','0')=='1'))
